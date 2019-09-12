@@ -29,6 +29,11 @@ namespace ZooKeeperServer
         {
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 
+            services.AddCors(c =>
+            {
+                c.AddPolicy("AllowOrigin", options => options.AllowAnyOrigin());
+            });
+
             // services.AddScoped<ILabellingService, LabellingService>();
         }
 
@@ -45,6 +50,7 @@ namespace ZooKeeperServer
                 app.UseHsts();
             }
 
+            app.UseCors(options => options.AllowAnyOrigin());
             app.UseHttpsRedirection();
             app.UseMvc();
         }
